@@ -1,1 +1,23 @@
-SU
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>signup</title>
+        <link rel="stylesheet" type="text/css" href="../../static/myapp/css/signup.css" />
+    </head>
+    <body>
+        <header>会員登録</header>
+        <br><br>
+    </body>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.as_p }}
+        <div>
+            <label>Username: <input type="text"></label>
+            <label>Email address: <input type="email"></label>
+            <label>Password: <input type="text"></label>
+            <label>Password confirmation: <input type="text"></label>
+            <label>img: <input type="image"></label>
+            <button type="submit">submit</button>
+        </div>
+    </form>
+</html>

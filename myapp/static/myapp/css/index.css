@@ -1,0 +1,15 @@
+div {
+    text-align: center;
+    margin-top: 50vh;
+}
+
+button {
+    background-color: white;
+    border-radius: 1vh;
+    border: 2px solid gray;
+    font-size: 250%;
+    width: 30%;
+    padding: 1rem;
+    font-style: bold;
+}
+

@@ -1,0 +1,17 @@
+header {
+    font-size: 5vw;
+    text-align: center;
+    display:block;
+    height: 7vh;
+    padding-top: 2vh;
+    border-bottom: 2px solid;
+}
+
+label {
+    display: block;
+    font-size: 2vw;
+}
+
+div {
+    text-align: center;
+}
