@@ -2,16 +2,58 @@ header {
     font-size: 5vw;
     text-align: center;
     display:block;
-    height: 7vh;
+    height: 6vh;
     padding-top: 2vh;
     border-bottom: 2px solid;
 }
 
-label {
-    display: block;
-    font-size: 2vw;
+table {
+    padding-top: 2vh;
+    margin: auto;
+    font-size: 3vw;
+    padding-bottom: 2vh;
 }
 
-div {
+label {
+    font-size: 3vw;
+}
+
+button {
+    padding: 1vw;
+    width: 15vw;
+    font-size: 130%;
+    background-color: white;
+    border-radius: 1.5vw;
+    font-weight: bold;
+    border: 2px solid gray;
+}
+
+form {
     text-align: center;
+}
+
+input {
+    width: 25vw;
+    border: 1px solid;
+}
+
+
+#id_img {
+    border: none;
+    font-size: 2vw;
+    width: 35vw;
+}
+
+.helptext {
+    display: none;
+}
+
+th {
+    width: 25vw;
+    text-align: right;
+}
+
+td {
+    width: 30vw;
+    text-align: left;
 }

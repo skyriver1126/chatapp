@@ -27,3 +27,6 @@ def signup(request):
         if form.is_valid():
             form.save()
             return  redirect(index)
+    else:
+        form = SignupCustomUser
+    return render(request, "myapp/signup.html", {'form': form})        
