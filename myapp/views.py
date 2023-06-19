@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import CustomUser
-from .forms import SignupCustomUser
+from .forms import SignupCustomUser,LoginCustomUser
 
 
 def index(request):
@@ -29,4 +29,8 @@ def signup(request):
             return  redirect(index)
     else:
         form = SignupCustomUser
-    return render(request, "myapp/signup.html", {'form': form})        
+    return render(request, "myapp/signup.html", {'form': form})
+
+def login(request):
+    form = LoginCustomUser
+    return render(request, "myapp/login.html", {'form': form})

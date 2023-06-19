@@ -8,10 +8,8 @@ header {
 }
 
 table {
-    padding-top: 2vh;
     margin: auto;
     font-size: 3vw;
-    padding-bottom: 2vh;
 }
 
 label {
@@ -26,6 +24,7 @@ button {
     border-radius: 1.5vw;
     font-weight: bold;
     border: 2px solid gray;
+    margin-bottom: 1vh;
 }
 
 form {
@@ -34,7 +33,9 @@ form {
 
 input {
     width: 25vw;
+    height: 2vh;
     border: 1px solid;
+    font-size: 2vh;
 }
 
 
@@ -56,4 +57,13 @@ th {
 td {
     width: 30vw;
     text-align: left;
+}
+
+.errorlist {
+    list-style: none;
+    font-size: 1.3vh;
+    font-weight: bold;
+}
+ul {
+    margin: 0;
 }

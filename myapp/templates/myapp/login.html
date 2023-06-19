@@ -1,1 +1,14 @@
-LI
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>login</title>
+        <link rel="stylesheet" href="../../static/myapp/css/login.css">
+    </head>
+    <body>
+        <header>ログイン</header>
+    </body>
+    <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+</html>
