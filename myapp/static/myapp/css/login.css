@@ -1,0 +1,43 @@
+header {
+    font-size: 5vw;
+    text-align: center;
+    display:block;
+    height: 6vh;
+    padding-top: 2vh;
+    border-bottom: 2px solid;
+    margin-bottom: 2vh;
+}
+
+input {
+    font-size: 1.5vh;
+    width: 40vw;
+    height: 2vh;
+    border: 1px solid black;
+    border-radius: 0.3vh;
+}
+
+p {
+    font-size: 2vh;
+    margin: auto;
+}
+
+form {
+    text-align: center;
+    font-weight: bold;
+}
+
+button {
+    margin-top: 2vh;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 1vh;
+    width: 25vw;
+    height: 5vh;
+    font-size: 2vh;
+    font-weight: bold;
+}
+
+div {
+    margin-bottom: 1vh;
+    font-size: 1.5vh;
+}

@@ -1,6 +1,9 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import CustomUser
 from .forms import SignupCustomUser,LoginCustomUser
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
+from . import forms
 
 
 def index(request):
@@ -31,6 +34,6 @@ def signup(request):
         form = SignupCustomUser
     return render(request, "myapp/signup.html", {'form': form})
 
-def login(request):
-    form = LoginCustomUser
-    return render(request, "myapp/login.html", {'form': form})
+class Login(LoginView):
+    form_class = forms.LoginCustomUser
+    template_name = "myapp/login.html"
