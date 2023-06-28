@@ -3,6 +3,7 @@ from .models import CustomUser
 from .forms import SignupCustomUser,LoginCustomUser
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import login_required
 from . import forms
 
 
@@ -15,9 +16,14 @@ def signup_view(request):
 def login_view(request):
     return render(request, "myapp/login.html")
 
+@login_required
 def friends(request):
-    return render(request, "myapp/friends.html")
+    template_name = "myapp/friends.html"
+    obj = CustomUser.objects.exclude(username=request.user.username)
+    context = {'obj_list':obj}
+    return render(request, template_name, context)
 
+@login_required
 def talk_room(request):
     return render(request, "myapp/talk_room.html")
 
@@ -37,3 +43,4 @@ def signup(request):
 class Login(LoginView):
     form_class = forms.LoginCustomUser
     template_name = "myapp/login.html"
+
