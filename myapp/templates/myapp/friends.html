@@ -8,7 +8,7 @@
     {% block extra_style %}{% endblock %}
     <title>DeMiAインターン</title>
 </head>
-<body>
+<body>{% csrf_token %}
     {% block header %}
     <header class="header">
         <div class="header-container">
@@ -20,9 +20,13 @@
     {% endblock %}
 
     {% block content %}
+    <form method="get">
+        <input type="text" value="{{ request.GET.query }}">
+        <button type="submit">Search</button>
+    </form>
     <div class="container">
         {% for n in obj_list %}
-            <a class="box" href="{% url 'talk_room' %}"><img src="/media/{{ n.img }} " class="icon"><span class="name">{{ n.username }}</span></a>
+            <a class="box" href="{% url 'talk_room' n.username %}"><img src="/media/{{ n.img }} " class="icon"><span class="name">{{ n.username }}</span></a>
         {% endfor %}
     </div>
     {% endblock %}

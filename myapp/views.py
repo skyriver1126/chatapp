@@ -1,10 +1,11 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import CustomUser
-from .forms import SignupCustomUser,LoginCustomUser
+from .forms import SignupCustomUser,LoginCustomUser,SearchForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from . import forms
+from django.db.models import Q
 
 
 def index(request):
@@ -19,13 +20,17 @@ def login_view(request):
 @login_required
 def friends(request):
     template_name = "myapp/friends.html"
-    obj = CustomUser.objects.exclude(username=request.user.username)
+    obj = CustomUser.objects.exclude(username=request.user.username).order_by('-date_joined')
+    keyword = request.GET.get('keyword')
+    if keyword:
+        obj = CustomUser.filter(Q(username_icontains=keyword))
     context = {'obj_list':obj}
     return render(request, template_name, context)
 
 @login_required
-def talk_room(request):
-    return render(request, "myapp/talk_room.html")
+def talk_room(request,room):
+    template_name = "myapp/talk_room.html"
+    return render(request, template_name)
 
 def setting(request):
     return render(request, "myapp/setting.html")

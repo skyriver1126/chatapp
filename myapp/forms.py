@@ -33,6 +33,9 @@ class LoginCustomUser(AuthenticationForm):
             self.error_messages["invalid_login"],
             code="invalid_login"
         )
+    
+class SearchForm(forms.Form):
+    keyword = forms.CharField(label='', max_length=50)
         
     # def clean(self):
     #     username = self.cleaned_data.get("username")
