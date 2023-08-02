@@ -1,6 +1,6 @@
 from typing import Any
 from django import forms
-from .models import CustomUser
+from .models import CustomUser,TalkRoom
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.utils.translation import gettext_lazy as _
@@ -33,31 +33,8 @@ class LoginCustomUser(AuthenticationForm):
             self.error_messages["invalid_login"],
             code="invalid_login"
         )
-    
-class SearchForm(forms.Form):
-    keyword = forms.CharField(label='', max_length=50)
-        
-    # def clean(self):
-    #     username = self.cleaned_data.get("username")
-    #     password = self.cleaned_data.get("password")
 
-    #     if username is not None and password:
-    #         self.user_cache2 = authenticate(
-    #             self.request, username=username
-    #         )
-    #         self.user_cache = authenticate(
-    #             self.request, username=username, password=password
-    #         )
-    #         if self.user_cache2 is None:
-    #             raise self.get_user_error()
-    #         else:
-    #             if self.user_cache is None:
-    #                 raise self.get_invalid_login_error()
-    #             else:
-    #                 self.confirm_login_allowed(self.user_cache2)
-
-    #     return self.cleaned_data
-
-
-
-        
+class TalkRoomForm(forms.ModelForm):
+    class Meta:
+        model = TalkRoom
+        fields = ('message',)

@@ -6,7 +6,7 @@ urlpatterns = [
     path('signup', views.signup, name='signup_view'),
     path('login', views.Login.as_view(), name='login_view'),
     path('friends', views.friends, name='friends'),
-    path('talk_room/<str:room>', views.talk_room, name='talk_room'),
+    path('talk_room/<int:room>', views.talk_room, name='talk_room'),
     path('setting', views.setting, name='setting'),
 ]
 

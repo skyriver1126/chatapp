@@ -1,1 +1,42 @@
-TR dayo
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/talk_room.css' %}" />
+    {% block extra_style %}{% endblock %}
+    <title>DeMiAインターン</title>
+</head>
+<body>
+    {% block header %}
+    <header class="header">  
+        <div class="header-container">
+            <span class="header-container__title">
+                {% block header-title %} 
+                    <a href="{% url 'friends' %}"><button type="submit" class="back"><</button></a>
+                    {{ friend.username }} 
+                    <a href="{% url 'talk_room' friend.id %}"><button type="submit" class="reload">更新</button></a>
+                {% endblock %}
+            </span>
+        </div>
+    </header>
+    {% endblock %}
+    {% block content %}
+        {% for i in messages %}
+            {{ i.message }}
+        {% endfor %}
+    {% endblock %}
+
+    <footer>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="message">
+                {{ form.message }}
+                <button type="submit" class="send_message">送信</button>
+            </div>
+        </form>
+    </footer>
+
+</body>
+</html>

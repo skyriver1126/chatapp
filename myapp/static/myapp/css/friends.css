@@ -12,6 +12,7 @@ body{
     height: 64px;
     border-bottom: solid 1px #9b9b9b;
     background-color: lightgray;
+    z-index: 100;
 }
 .header-container{
     position: relative;
@@ -48,6 +49,7 @@ body{
     text-align: center;
     border-top: solid 1px #9b9b9b;
     background-color: lightgray;
+    z-index: 100;
 }
 .footer-container__item{
     display: flex;
@@ -95,6 +97,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    z-index: 0;
 }
 
 .box {
@@ -110,4 +113,25 @@ body{
     vertical-align: top;
     color: black;
     font-weight: bold;
+}
+
+form {
+    height: 5vh;
+    background-color: gray;
+}
+
+.search {
+    display: block;
+    text-align: center;
+    padding-top: 0.5vh;
+}
+
+input {
+    border: 1px bold lightgray;
+    border-radius: 2vw;
+}
+
+button {
+    border-radius: 10vh;
+    border: 1px solid gray;
 }
