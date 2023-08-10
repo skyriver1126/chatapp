@@ -22,10 +22,36 @@
         </div>
     </header>
     {% endblock %}
+
     {% block content %}
-        {% for i in messages %}
-            {{ i.message }}
-        {% endfor %}
+        <div class="content">
+            {% for i in messages %}
+                {% if i.sender == friend %}
+                    <div class="friend">
+                        >{{ i.sender }} 
+                        <div class="message"> 
+                            {{ i.message }} 
+                        </div>
+                        <div class="time">
+                            {{ i.date_send | date:'m/d' }} <br>
+                            {{ i.date_send | date:'H:i' }}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="me">
+                        >{{ i.sender }} 
+                        <div class="message"> 
+                            {{ i.message }} 
+                        </div>
+                        <div class="time">
+                            {{ i.date_send | date:'m/d' }} <br>
+                            {{ i.date_send | date:'H:i' }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="space"></div>
+        </div>
     {% endblock %}
 
     <footer>

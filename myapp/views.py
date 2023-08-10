@@ -32,15 +32,15 @@ def talk_room(request, room):
     friend = CustomUser.objects.get(id=room)
     Messages = TalkRoom.objects.filter(Q(sender=request.user, receiver=friend) | Q(sender=friend, receiver=request.user)).order_by('date_send')
     if request.POST:
-        print(request.POST.get("message"))
         form = TalkRoomForm(request.POST)
         if form.is_valid():
             message = form.save(commit=False)
             message.sender = request.user
             message.receiver = friend
             message.save()
+            form = TalkRoomForm()
     else:
-        form = TalkRoomForm
+        form = TalkRoomForm()
     context = {'friend': friend, 'messages': Messages, 'form':form}
     return render(request, template_name, context)
 

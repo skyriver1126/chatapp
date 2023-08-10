@@ -8,10 +8,12 @@ body{
 
 /* ヘッダー */
 .header{
+    position: fixed;
     width: 100vw;
     height: 64px;
     border-bottom: solid 1px #9b9b9b;
     background-color: gainsboro;
+    z-index: 100;
 }
 .header-container{
     position: relative;
@@ -37,7 +39,7 @@ body{
 footer {
     text-align: center;
     position: fixed;
-    bottom: 3px;
+    bottom: 0;
     z-index: 100;
     width: 100vw;
     background-color: gainsboro;
@@ -79,4 +81,38 @@ input {
     font-size: 7vw;
     left: 2vw;
     top: 3vh;
+}
+
+.friend {
+    position: relative;
+    text-align: left;
+    border-bottom: gray solid 1px;
+}
+
+.me {
+    position: relative;
+    text-align: left;
+    border-bottom: gray solid 1px;
+}
+
+.time {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 1vh;
+}
+
+.content {
+    width: 100%;
+    position: absolute;
+    top: 10vh;
+    bottom: 5vh;
+}
+
+.space {
+    height: 50vh;
+}
+
+.me {
+    color: #9b9b9b;
 }
