@@ -101,6 +101,7 @@ body{
 }
 
 .box {
+    position: relative;
     height: 15vw;
     border-bottom: 1px solid lightgray;
     border-top: 1px solid lightgray;
@@ -134,4 +135,20 @@ input {
 button {
     border-radius: 10vh;
     border: 1px solid gray;
+}
+
+.time {
+    position: absolute;
+    right: 0.5vh;
+    top: 0.5vh;
+    font-size: 1vh;
+    color: black;
+}
+
+.message {
+    position: absolute;
+    right: 0.5vh;
+    font-size: 2.5vh;
+    bottom: 0;
+    color: black;
 }

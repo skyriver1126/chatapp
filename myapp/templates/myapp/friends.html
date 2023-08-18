@@ -27,8 +27,21 @@
         </div>
     </form>
     <div class="container">
-        {% for n in obj_list %}
-            <a class="box" href="{% url 'talk_room' n.pk %}"><img src="/media/{{ n.img }} " class="icon"><span class="name">{{ n.username }}</span></a>
+        {% for n in user_list %}
+            {% for i in latest_message %}
+                {% if i.sender == n %}
+                <a class="box" href="{% url 'talk_room' n.pk %}"><img src="/media/{{ n.img }} " class="icon"><span class="name">{{ n.username }}</span>
+                    <div class="message">{{ i.message }}</div>
+                    <div class="time">{{ i.date_send | date:'H:i'}}</div>
+                </a>
+                {% elif i.receiver == n %}
+                <a class="box" href="{% url 'talk_room' n.pk %}"><img src="/media/{{ n.img }} " class="icon"><span class="name">{{ n.username }}</span>
+                    <div class="message">{{ i.message }}</div>
+                    <div class="time">{{ i.date_send | date:'H:i' }}</div>
+                </a>
+                {% endif %}
+            {% endfor %}
+
         {% endfor %}
     </div>
     {% endblock %}

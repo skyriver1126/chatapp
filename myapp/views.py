@@ -20,10 +20,26 @@ def login_view(request):
 def friends(request):
     template_name = "myapp/friends.html"
     obj = CustomUser.objects.exclude(username=request.user.username).order_by('-date_joined')
+    msg = []
+    try:
+        for a in obj:
+            message = TalkRoom.objects.filter(Q(sender=request.user, receiver=a) | Q(sender=a, receiver=request.user)).first()
+            if message:
+                msg.append(message)
+    except ValueError:
+        print("error")
     if request.POST:
         q = request.POST["q"]
         obj = CustomUser.objects.filter(username__icontains=q).order_by('-date_joined')
-    context = {'obj_list':obj}
+        msg = []
+        try:
+            for a in obj:
+                message = TalkRoom.objects.filter(Q(sender=request.user, receiver=a) | Q(sender=a, receiver=request.user)).first()
+                if message:
+                    msg.append(message)
+        except ValueError:
+                print("error")
+    context = {'user_list':obj, 'latest_message':msg}
     return render(request, template_name, context)
 
 @login_required
@@ -62,6 +78,3 @@ class Login(LoginView):
     template_name = "myapp/login.html"
 
 
-
-
-    
