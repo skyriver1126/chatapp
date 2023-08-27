@@ -1,11 +1,14 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import CustomUser,TalkRoom
-from .forms import SignupCustomUser,LoginCustomUser,TalkRoomForm
+from .forms import SignupCustomUser,LoginCustomUser,TalkRoomForm,ChangeUsernameForm,ChangeEmailForm,ChangeIconForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from . import forms
 from django.db.models import Q
+from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import View
 
 def index(request):
     return render(request, "myapp/index.html")
@@ -78,3 +81,63 @@ class Login(LoginView):
     template_name = "myapp/login.html"
 
 
+class Logout(LoginRequiredMixin, LogoutView):
+    template_name = "myapp/logout.html"
+
+class change_username(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        form = ChangeUsernameForm()
+        context = {"form":form}
+        return render(request, 'myapp/change_username.html', context)
+    
+    def post(self, request, *args, **kwargs):
+        form = ChangeUsernameForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            user_obj = CustomUser.objects.get(username=request.user.username)
+            user_obj.username = username
+            user_obj.save()
+            context = {"message":"ユーザー名変更完了"}
+            return render(request, 'myapp/change_username.html', context)
+        else:
+            context = {"form":form, "message":"ユーザー名変更失敗"}
+            return render(request, 'myapp/change_username.html', context)
+        
+class change_email(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        form = ChangeEmailForm()
+        context = {"form":form}
+        return render(request, 'myapp/change_email.html', context)
+    
+    def post(self, request, *args, **kwargs):
+        form = ChangeEmailForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            user_obj = CustomUser.objects.get(username=request.user.email)
+            user_obj.email = email
+            user_obj.save()
+            context = {"message":"メールアドレス変更完了"}
+            return render(request, 'myapp/change_email.html', context)
+        else:
+            context = {"form":form, "message":"メールアドレス変更失敗"}
+            return render(request, 'myapp/change_email.html', context)
+        
+class change_icon(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        form = ChangeIconForm()
+        context = {"form":form}
+        return render(request, 'myapp/change_icon.html', context)
+    
+    def post(self, request, *args, **kwargs):
+        form = ChangeUsernameForm(request.POST)
+        if form.is_valid():
+            icon = form.cleaned_data["img"]
+            user_obj = CustomUser.objects.get(username=request.user.img)
+            user_obj.img = icon
+            user_obj.save()
+            context = {"message":"アイコン変更完了"}
+            return render(request, 'change_icon', context)
+        else:
+            context = {"form":form, "message":"アイコン変更失敗"}
+            return render(request, 'change_icon', context)
+        

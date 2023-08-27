@@ -38,3 +38,19 @@ class TalkRoomForm(forms.ModelForm):
     class Meta:
         model = TalkRoom
         fields = ('message',)
+
+class ChangeEmailForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ("email",)
+
+class ChangeIconForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ("img",)
+
+class ChangeUsernameForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ("username",)
+
