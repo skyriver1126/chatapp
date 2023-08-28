@@ -1,14 +1,16 @@
+from typing import Any
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import CustomUser,TalkRoom
 from .forms import SignupCustomUser,LoginCustomUser,TalkRoomForm,ChangeUsernameForm,ChangeEmailForm,ChangeIconForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 from django.contrib.auth.decorators import login_required
 from . import forms
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
+from django.urls import reverse_lazy
 
 def index(request):
     return render(request, "myapp/index.html")
@@ -141,3 +143,14 @@ class change_icon(LoginRequiredMixin, View):
             context = {"form":form, "message":"アイコン変更失敗"}
             return render(request, 'change_icon', context)
         
+class change_password(LoginRequiredMixin, PasswordChangeView):
+    success_url = reverse_lazy('password_change_done')
+    template_name = 'myapp/change_password.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form_name"] = "password_change"
+        return context
+    
+class password_change_done(LoginRequiredMixin, PasswordChangeDoneView):
+    template_name = 'myapp/password_change_done.html'

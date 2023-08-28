@@ -12,7 +12,8 @@ urlpatterns = [
     path('change_username', views.change_username.as_view(), name='change_username'),
     path('change_email', views.change_email.as_view(), name='change_email'),
     path('change_icon', views.change_icon.as_view(), name='change_icon'),
-    # path('change_password', views.change_password.as_view(), name='change_password'),
+    path('change_password', views.change_password.as_view(), name='change_password'),
+    path('password_change_done', views.password_change_done.as_view(), name='password_change_done'),
 ]
 
 from django.conf import settings
