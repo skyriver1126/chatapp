@@ -149,6 +149,9 @@ button {
     position: absolute;
     right: 0.5vh;
     font-size: 2.5vh;
-    bottom: 0;
     color: black;
+    top: 2vh;
+    left: 15vw;
+    height: 15vh;
+    overflow: hidden;
 }

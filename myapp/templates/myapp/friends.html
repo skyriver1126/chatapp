@@ -29,17 +29,14 @@
     <div class="container">
         {% for n in user_list %}
             <a class="box" href="{% url 'talk_room' n.pk %}"><img src="/media/{{ n.img }} " class="icon"><span class="name">{{ n.username }}</span>
-                {% for i in latest_message %}
-                    {% if i.sender == n %}
-                        <div class="message">{{ i.message }}</div>
-                        <div class="time">{{ i.date_send | date:'H:i'}}</div>
-                    {% elif i.receiver == n %}
-                        <div class="message">{{ i.message }}</div>
-                        <div class="time">{{ i.date_send | date:'H:i'}}</div>
-                    {% endif %}
-                {% endfor %}
+            {% if n.latest_sender_message %}
+                <div class="message">{{ n.latest_sender_message }}</div>
+                <div class="time">{{ n.latest_sender_message_time | date:'H:i' }}</div>
+            {% elif n.latest_receiver_message %}
+                <div class="message">{{ n.latest_receiver_message }}</div>
+                <div class="time">{{ n.latest_receiver_message_time | date:'H:i' }}</div>
+            {% endif %}
             </a>
-
         {% endfor %}
     </div>
     {% endblock %}

@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 from django.contrib.auth.decorators import login_required
 from . import forms
-from django.db.models import Q
+from django.db.models import Q, Prefetch, Max, Subquery, OuterRef
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
@@ -25,33 +25,30 @@ def login_view(request):
 def friends(request):
     template_name = "myapp/friends.html"
     obj = CustomUser.objects.exclude(username=request.user.username).order_by('-date_joined')
-    msg = []
-    try:
-        for a in obj:
-            message = TalkRoom.objects.filter(Q(sender=request.user, receiver=a) | Q(sender=a, receiver=request.user)).first()
-            if message:
-                msg.append(message)
-    except ValueError:
-        print("error")
+
+    sender_subquery = TalkRoom.objects.filter(sender=OuterRef('pk')).order_by('-date_send')
+    receiver_subquery = TalkRoom.objects.filter(receiver=OuterRef('pk')).order_by('-date_send')
+
+    obj = obj.annotate(
+        latest_sender_message=Subquery(sender_subquery.values('message')[:1]),
+        latest_sender_message_time=Subquery(sender_subquery.values('date_send')[:1]),
+        latest_receiver_message=Subquery(receiver_subquery.values('message')[:1]),
+        latest_receiver_message_time=Subquery(receiver_subquery.values('date_send')[:1])
+    )
+
     if request.POST:
-        q = request.POST["q"]
-        obj = CustomUser.objects.filter(username__icontains=q).order_by('-date_joined')
-        msg = []
-        try:
-            for a in obj:
-                message = TalkRoom.objects.filter(Q(sender=request.user, receiver=a) | Q(sender=a, receiver=request.user)).first()
-                if message:
-                    msg.append(message)
-        except ValueError:
-                print("error")
-    context = {'user_list':obj, 'latest_message':msg}
+        q = request.POST.get('q')
+        if q:
+            obj = obj.filter(Q(username__icontains=q) | Q(email__icontains=q))
+
+    context = {'user_list': obj}
     return render(request, template_name, context)
 
 @login_required
 def talk_room(request, room):
     template_name = "myapp/talk_room.html"
-    friend = CustomUser.objects.get(id=room)
-    Messages = TalkRoom.objects.filter(Q(sender=request.user, receiver=friend) | Q(sender=friend, receiver=request.user)).order_by('date_send')
+    friend = get_object_or_404(CustomUser, id=room)
+    Messages = TalkRoom.objects.select_related('sender', 'receiver').filter(Q(sender=request.user, receiver=friend) | Q(sender=friend, receiver=request.user)).order_by('date_send')
     if request.POST:
         form = TalkRoomForm(request.POST)
         if form.is_valid():
